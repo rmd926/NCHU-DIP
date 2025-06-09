@@ -1,23 +1,70 @@
-本人在本次作業使用colab環境進行撰寫，故使用matplotlib裡面的pyplot去作圖。
-Q8:
-a)因為間隔數量=256去 mod level，所以將圖像讀進來之後，分別呈現原圖以及將強度從256變為2的圖。
+# 數位影像處理作業說明（Colab 環境）
 
-b)這題就是把原本的desired_level從int換成輸入一個陣列，唯一要改變的就是最後寫一個迴圈去跑陣列中的所有數字，也就是16,8,4,2，並且效仿課本一樣一行出現兩張圖。
+> 📌 [點此開啟 Colab 筆記本](https://colab.research.google.com/drive/1jEN7bJCFt8Q9pp5POcDGxrY6NSRclQl_?usp=sharing)
 
+本次作業於 Google Colab 環境完成，並使用 `matplotlib.pyplot` 進行視覺化繪圖與結果展示。以下針對 Q8～Q10 題目說明程式邏輯與處理方式。
 
-Q9:
-a)就是寫兩個function分別是zoom和shrunk，就是把圖片*zoom或shrink的倍數之後，再把圖片resize。那圖片呈現的分別是原圖、zoom、shrunk。
+---
 
-b)這題就是保留a)程式碼中shrink function，然後調成12倍再把圖畫出來，並存起來備用。
+## 📘 Q8. 影像強度重新量化（Intensity Re-quantization）
 
-c)本人把b)存出來的圖再用zoom 12倍回去進行比較。
+### a) 將圖像強度從 256 降為 2 個灰階級距  
+- 圖像讀入後，先顯示原圖。
+- 接著利用「取模」方式將圖像灰階重新量化為 2 級，做簡化處理。
+- `new_img = (img / (256 / level)).astype(int) * (256 / level)`。
 
+### b) 批次顯示不同的量化等級（16, 8, 4, 2）
+- 修改程式讓 `desired_level` 接受陣列 `[16, 8, 4, 2]`。
+- 透過迴圈依序處理並顯示所有 re-quantized 結果。
+- 圖像排列為每列兩張，模仿課本呈現格式。
 
-Q10
-a)本題主要考量的是旋轉角度、裁切的比例、還有translate的pixel，那本人是使用lena作為實驗圖。
-b)分別把圖片旋轉23度，x y shift 18 、 22個pixel，並且把裁切比例調成2/3，基本上做完上述步驟再把圖片換成指定圖即可。
-接著再參考課本的三種內插法進行實現，那這部分也挺簡單，因為cv2有內建的套件，直接套完再作圖就可以了。
+---
 
+## 🔍 Q9. Zoom & Shrink（影像放大與縮小）
 
-本次作業colab連結在此:
-https://colab.research.google.com/drive/1jEN7bJCFt8Q9pp5POcDGxrY6NSRclQl_?usp=sharing
+### a) 製作 Zoom 與 Shrink 函數並視覺化
+- 分別撰寫 `zoom()` 與 `shrink()` 函數。
+- 使用放大與縮小倍率處理後，將圖 resize 成原圖尺寸以利比較。
+- 最終顯示三張圖：原圖、放大圖、縮小圖。
+
+### b) 將圖像縮小 12 倍並儲存
+- 套用 `shrink()` 函數縮小倍率設為 12。
+- 將結果以 `cv2.imwrite()` 或 `plt.imsave()` 儲存以供後續使用。
+
+### c) 將縮小後影像再放大 12 倍以進行比較
+- 讀取前一步儲存的圖。
+- 使用 `zoom()` 函數還原至原始尺寸進行視覺化比較。
+
+---
+
+## 🌀 Q10. 仿射轉換（Affine Transformation）
+
+### a) 調整旋轉角度、裁切比例與平移距離
+- 使用 `lena` 圖作為初始圖像。
+- 將圖像：
+  - 旋轉 23 度、
+  - 平移 x:18、y:22 像素、
+  - 裁切比例設為 2/3。
+- 對應函數可使用 OpenCV 中的 `getRotationMatrix2D` 與 `warpAffine`。
+
+### b) 改用指定圖片並實作三種內插法
+- 套用相同轉換步驟至指定圖像。
+- 分別使用 OpenCV 提供的三種內插方式實作：
+  - 最近鄰插值（`cv2.INTER_NEAREST`）
+  - 雙線性插值（`cv2.INTER_LINEAR`）
+  - 立方插值（`cv2.INTER_CUBIC`）
+
+---
+
+## 🛠 使用套件
+
+- Python 3.x
+- OpenCV (`cv2`)
+- NumPy
+- Matplotlib (`pyplot`)
+- Colab 環境內建支援
+
+---
+
+📎 **備註**  
+作業程式已全數整合於 Google Colab 筆記本，並可直接於瀏覽器中執行及展示結果。
