@@ -1,7 +1,7 @@
 # 數位影像處理作業說明（Colab 實作）
 
 📎 **程式筆記本連結**：  
-👉 *請於此處補上 Colab 連結*
+👉 *https://colab.research.google.com/drive/1M11jAaIqpvMGRrZG16LFGnCvID_VT2Zu?usp=sharing*
 
 > ⚠️ 本次作業於 Google Colab 環境開發完成，程式碼整合執行並依據題目邏輯順序排列。
 
