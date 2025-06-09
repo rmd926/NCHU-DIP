@@ -1,4 +1,4 @@
-### You can refer to the following link to complete all of the labs in DIP course.
+### You can refer to the following link to complete most questions of the labs in DIP course.
 
 ---
 
